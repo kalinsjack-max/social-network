@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Network</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Auth Container -->
+    <div id="auth-container" class="auth-container">
+        <div class="auth-box">
+            <div class="auth-logo">
+                <h1>SocialNet</h1>
+                <p>Connect with friends and the world around you.</p>
+            </div>
+            
+            <div class="auth-forms">
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form active">
+                    <input type="email" id="login-email" placeholder="Email" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button type="submit" class="btn-primary">Log In</button>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                    <hr>
+                    <button type="button" class="btn-secondary" onclick="showRegister()">Create New Account</button>
+                </form>
+
+                <!-- Register Form -->
+                <form id="register-form" class="auth-form">
+                    <div class="name-row">
+                        <input type="text" id="reg-firstname" placeholder="First name" required>
+                        <input type="text" id="reg-lastname" placeholder="Last name" required>
+                    </div>
+                    <input type="email" id="reg-email" placeholder="Email" required>
+                    <input type="password" id="reg-password" placeholder="New password" required>
+                    <button type="submit" class="btn-primary">Sign Up</button>
+                    <hr>
+                    <button type="button" class="btn-secondary" onclick="showLogin()">Already have an account?</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app-container" class="app-container hidden">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="#" class="logo" onclick="showFeed()">SocialNet</a>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search SocialNet" id="search-input">
+                    <div id="search-results" class="search-results"></div>
+                </div>
+            </div>
+            
+            <div class="nav-center">
+                <a href="#" class="nav-icon active" onclick="showFeed()" title="Home">
+                    <i class="fas fa-home"></i>
+                </a>
+                <a href="#" class="nav-icon" onclick="showWatch()" title="Watch">
+                    <i class="fas fa-tv"></i>
+                </a>
+                <a href="#" class="nav-icon" onclick="showMarketplace()" title="Marketplace">
+                    <i class="fas fa-store"></i>
+                </a>
+                <a href="#" class="nav-icon" onclick="showGroups()" title="Groups">
+                    <i class="fas fa-users"></i>
+                </a>
+            </div>
+            
+            <div class="nav-right">
+                <div class="nav-icon" onclick="showMessenger()" title="Messenger">
+                    <i class="fas fa-comment-dots"></i>
+                    <span class="badge" id="message-badge">0</span>
+                </div>
+                <div class="nav-icon" onclick="showNotifications()" title="Notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge" id="notif-badge">0</span>
+                </div>
+                <div class="profile-menu" onclick="toggleProfileMenu()">
+                    <img id="nav-avatar" src="" alt="Profile">
+                    <div class="dropdown-menu" id="profile-dropdown">
+                        <a href="#" onclick="showProfile()"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" onclick="showSettings()"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Sidebar -->
+            <aside class="left-sidebar">
+                <a href="#" class="menu-item" onclick="showProfile()">
+                    <img id="sidebar-avatar" src="" alt="">
+                    <span id="sidebar-name"></span>
+                </a>
+                <a href="#" class="menu-item" onclick="showFriends()">
+                    <i class="fas fa-user-friends"></i>
+                    <span>Friends</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showGroups()">
+                    <i class="fas fa-users"></i>
+                    <span>Groups</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showMarketplace()">
+                    <i class="fas fa-store"></i>
+                    <span>Marketplace</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showWatch()">
+                    <i class="fas fa-tv"></i>
+                    <span>Watch</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showMemories()">
+                    <i class="fas fa-history"></i>
+                    <span>Memories</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showSaved()">
+                    <i class="fas fa-bookmark"></i>
+                    <span>Saved</span>
+                </a>
+            </aside>
+
+            <!-- Center Feed -->
+            <main class="feed-container" id="feed-container">
+                <!-- Stories -->
+                <div class="stories-container">
+                    <div class="story create-story">
+                        <img id="story-avatar" src="" alt="">
+                        <div class="create-story-btn">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <span>Create Story</span>
+                    </div>
+                    <div class="story">
+                        <img src="https://via.placeholder.com/100" alt="">
+                        <span>Friend 1</span>
+                    </div>
+                    <div class="story">
+                        <img src="https://via.placeholder.com/100" alt="">
+                        <span>Friend 2</span>
+                    </div>
+                    <div class="story">
+                        <img src="https://via.placeholder.com/100" alt="">
+                        <span>Friend 3</span>
+                    </div>
+                </div>
+
+                <!-- Create Post -->
+                <div class="create-post">
+                    <div class="create-post-top">
+                        <img id="post-avatar" src="" alt="">
+                        <input type="text" placeholder="What's on your mind?" onclick="openCreatePostModal()">
+                    </div>
+                    <div class="create-post-bottom">
+                        <div class="post-option">
+                            <i class="fas fa-video" style="color: #f3425f;"></i>
+                            <span>Live Video</span>
+                        </div>
+                        <div class="post-option">
+                            <i class="fas fa-images" style="color: #45bd62;"></i>
+                            <span>Photo/Video</span>
+                        </div>
+                        <div class="post-option">
+                            <i class="fas fa-smile" style="color: #f7b928;"></i>
+                            <span>Feeling</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Posts Feed -->
+                <div id="posts-feed" class="posts-feed"></div>
+            </main>
+
+            <!-- Right Sidebar -->
+            <aside class="right-sidebar">
+                <div class="sponsored">
+                    <h4>Sponsored</h4>
+                    <div class="sponsored-item">
+                        <img src="https://via.placeholder.com/150" alt="">
+                        <div>
+                            <h5>Advertisement</h5>
+                            <p>website.com</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contacts">
+                    <div class="contacts-header">
+                        <h4>Contacts</h4>
+                        <div class="contact-icons">
+                            <i class="fas fa-video"></i>
+                            <i class="fas fa-search"></i>
+                            <i class="fas fa-ellipsis-h"></i>
+                        </div>
+                    </div>
+                    <div id="contacts-list"></div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Create Post Modal -->
+    <div id="create-post-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create Post</h3>
+                <button class="close-btn" onclick="closeCreatePostModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="post-user-info">
+                    <img id="modal-avatar" src="" alt="">
+                    <div>
+                        <h4 id="modal-username"></h4>
+                        <select id="post-privacy">
+                            <option value="public">🌎 Public</option>
+                            <option value="friends">👥 Friends</option>
+                            <option value="private">🔒 Only Me</option>
+                        </select>
+                    </div>
+                </div>
+                <textarea id="post-content" placeholder="What's on your mind?"></textarea>
+                <div id="image-preview" class="image-preview"></div>
+                <div class="post-extras">
+                    <p>Add to your post</p>
+                    <div class="post-icons">
+                        <i class="fas fa-images" onclick="document.getElementById('post-image').click()"></i>
+                        <i class="fas fa-user-tag"></i>
+                        <i class="fas fa-smile"></i>
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                </div>
+                <input type="file" id="post-image" multiple accept="image/*" style="display: none;" onchange="previewImages(this)">
+                <button class="btn-primary full-width" onclick="createPost()">Post</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Messenger Modal -->
+    <div id="messenger-modal" class="modal">
+        <div class="modal-content messenger-content">
+            <div class="messenger-sidebar">
+                <div class="messenger-header">
+                    <h3>Messenger</h3>
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div id="conversations-list" class="conversations-list"></div>
+            </div>
+            <div class="messenger-chat" id="messenger-chat">
+                <div class="no-chat-selected">
+                    <i class="fas fa-comment-dots"></i>
+                    <p>Select a conversation to start messaging</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div id="profile-page" class="page hidden">
+        <div class="profile-header">
+            <div class="cover-photo">
+                <img id="cover-photo-img" src="" alt="">
+                <button class="edit-cover"><i class="fas fa-camera"></i></button>
+            </div>
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    <img id="profile-avatar-img" src="" alt="">
+                    <button class="edit-avatar"><i class="fas fa-camera"></i></button>
+                </div>
+                <div class="profile-details">
+                    <h1 id="profile-name"></h1>
+                    <p id="profile-bio"></p>
+                    <div class="profile-actions">
+                        <button class="btn-primary"><i class="fas fa-plus"></i> Add to Story</button>
+                        <button class="btn-secondary"><i class="fas fa-pen"></i> Edit Profile</button>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-nav">
+                <a href="#" class="active">Posts</a>
+                <a href="#">About</a>
+                <a href="#">Friends</a>
+                <a href="#">Photos</a>
+                <a href="#">Videos</a>
+            </div>
+        </div>
+        <div class="profile-content">
+            <div class="profile-left">
+                <div class="profile-card">
+                    <h3>Intro</h3>
+                    <p id="profile-bio-full"></p>
+                    <ul class="profile-details-list">
+                        <li><i class="fas fa-briefcase"></i> <span id="profile-work"></span></li>
+                        <li><i class="fas fa-graduation-cap"></i> <span id="profile-education"></span></li>
+                        <li><i class="fas fa-map-marker-alt"></i> <span id="profile-location"></span></li>
+                    </ul>
+                </div>
+                <div class="profile-card">
+                    <h3>Photos</h3>
+                    <div class="photo-grid" id="profile-photos"></div>
+                </div>
+                <div class="profile-card">
+                    <h3>Friends</h3>
+                    <div class="friends-grid" id="profile-friends"></div>
+                </div>
+            </div>
+            <div class="profile-right" id="profile-posts"></div>
+        </div>
+    </div>
+
+    <!-- Notifications Dropdown -->
+    <div id="notifications-dropdown" class="dropdown-panel">
+        <div class="dropdown-header">
+            <h3>Notifications</h3>
+            <i class="fas fa-ellipsis-h"></i>
+        </div>
+        <div id="notifications-list" class="notifications-list"></div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/feed.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/messenger.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
